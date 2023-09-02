@@ -10,15 +10,11 @@ app.use(express.static('dist'));
 const data = {
 
     questions:[{
-
         questionId:"Q1",
         content:"Which back end solution should we use for our application?"
-
     },{
-
         questionId:"Q2",
         content:"What percentage of developer time should be devoted to end-to-end testing?"
-
     }],
     answers:[{
 
@@ -71,6 +67,9 @@ app.get('/', async (_req, res) => {
 	res.send(index.replace("{{rendered}}", rendered));
 })
 
+app.get('/data', async (_req, res) => {
+	res.json(data);
+})
 const port = 7777;
 app.listen(port);
 console.info(`App listening on port ${port}`);
