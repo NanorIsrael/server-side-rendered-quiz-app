@@ -2,6 +2,7 @@ import React from "react";
 import {createRoot, hydrateRoot} from "react-dom/client";
 import ReactDOM from "react-dom";
 import {App} from './App';
+import {handleVotes} from '../shared/utility'
 
 const root = createRoot(document.getElementById("root"));
 
@@ -14,7 +15,6 @@ let state = undefined
 	
 		if (data) {
 			state = data
-			console.log("", state)
 			resolve();
 			render()
 		}
@@ -22,8 +22,9 @@ let state = undefined
 		console.log(err)
 	}
 })
-function handleModifiedVotes(answerId) {
-	state.answer = handleVotes(state.answer, answerId, increment);
+function handleModifiedVotes(answerId, increment) {
+	state.answers = handleVotes(state.answers, answerId, increment);
+	render();
 }
 
 function render() {
