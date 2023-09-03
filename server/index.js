@@ -3,6 +3,9 @@ import express from 'express';
 import {readFileSync} from 'fs';
 import {renderToString} from 'react-dom/server';
 import { App } from '../client/App';
+import { handleVotes } from '../shared/utility';
+
+
 
 const app = express();
 app.use(express.static('dist'));

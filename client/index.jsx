@@ -5,42 +5,29 @@ import {App} from './App';
 
 const root = createRoot(document.getElementById("root"));
 
-// root.render(<App/>);
 let state = undefined
 
-// const data = new Promise((resolve, reject))
-fetch('/data')
-.then(data => data.json())
-.then(res => {
-	state = res
-	console.log("", state)
-	render();
-})
-.catch((error) => {
-	console.log(error)
-})
-const handleVotes = (answerId, increment) => {
-
-	state.answers = state.answers.map((ans)=> {
-
-		if (ans.answerId != answerId) {
-			// ans.upvotes += increment
-			return ans;
+ new Promise(async (resolve, reject)=> {
+	try {
+		const res = await fetch('/data')
+		const data = await res.json();
+	
+		if (data) {
+			state = data
+			console.log("", state)
+			resolve();
+			render()
 		}
-
-		return {...ans, upvotes: ans.upvotes + 1};
-	})
-	console.log(state.answers);
-
-	render();2
+	} catch (err) {
+		console.log(err)
+	}
+})
+function handleModifiedVotes(answerId) {
+	state.answer = handleVotes(state.answer, answerId, increment);
 }
+
 function render() {
 	root.render(
-		<App {...state} handleVotes={handleVotes}/>
+		<App {...state} handleVotes={handleModifiedVotes}/>
 	)
 }
-// document.addEventListener("DOMContentLoaded", function() {
-// 	// Your code here
-// 	render()
-//   });
-  
