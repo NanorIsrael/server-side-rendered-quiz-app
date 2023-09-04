@@ -14,7 +14,7 @@ export const App = ({questions, answers, handleVotes}) => {
 								<div key={answerId}>
 									<p><span>{content}</span>&nbsp;-&nbsp;<span>{upvotes}</span>
 									&nbsp;<button onClick={() => handleVotes(answerId, 1)}>+</button>
-									&nbsp;<button onClick={() => handleVotes(answerId, 1)}>-</button>
+									&nbsp;<button onClick={() => handleVotes(answerId, -1)}>-</button>
 									</p>
 								</div>
 							)

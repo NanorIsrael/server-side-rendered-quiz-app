@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import {App} from './App';
 import {handleVotes} from '../shared/utility'
 
-const root = createRoot(document.getElementById("root"));
+const root = hydrateRoot(document.getElementById("root"), null);
 
 let state = undefined
 
@@ -24,8 +24,12 @@ let state = undefined
 })
 function handleModifiedVotes(answerId, increment) {
 	state.answers = handleVotes(state.answers, answerId, increment);
+	
+	fetch(`vote/?answerId=${answerId}&increment=${increment}`);
+	
 	render();
 }
+
 
 function render() {
 	root.render(

@@ -64,15 +64,24 @@ const data = {
     }]
     
 }
+app.get(`/vote`, async (req, res) => {
+	const {answerId, increment} = req.query;
+	data.answers = handleVotes(data.answers, answerId, increment);
+	res.send("OK");
+})
+
+app.get('/data', async (_req, res) => {
+	res.json(data);
+})
+
 app.get('/', async (_req, res) => {
 	const index = readFileSync("public/index.html", "utf8");
 	const rendered = renderToString(<App {...data}/>);
 	res.send(index.replace("{{rendered}}", rendered));
 })
 
-app.get('/data', async (_req, res) => {
-	res.json(data);
-})
+
+
 const port = 7777;
 app.listen(port);
 console.info(`App listening on port ${port}`);
